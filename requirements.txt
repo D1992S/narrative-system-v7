@@ -1,2 +1,2 @@
 # Tested Python dependency for the system's PDF layer and regression suite.
-PyMuPDF==1.28.0
+PyMuPDF==1.28.2
