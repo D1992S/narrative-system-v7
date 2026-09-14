@@ -1,0 +1,105 @@
+name: Kontrola systemu i panelu
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repository-checks-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Analiza kodu i testy
+    runs-on: windows-latest
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PYTHONUTF8: '1'
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-ci.txt
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24'
+      - name: Instalacja narzÄ™dzi kontroli
+        run: |
+          if ($PSVersionTable.PSVersion -lt [version]'7.5') { throw 'PowerShell 7.5+ required' }
+          python -m pip install -r requirements.txt -r requirements-ci.txt
+          if ($LASTEXITCODE -ne 0) { throw 'Python dependencies failed' }
+          New-Item -ItemType Directory -Force .local/PowerShell, artifacts | Out-Null
+          Save-Module -Name PSScriptAnalyzer -RequiredVersion 1.25.0 -Repository PSGallery -Path .local/PowerShell -Force
+      - name: Analiza caĹ‚ego kodu Python
+        id: python_scan
+        continue-on-error: true
+        run: python -B .github/scripts/scan_python.py
+      - name: Analiza caĹ‚ego kodu PowerShell
+        id: powershell_scan
+        continue-on-error: true
+        run: ./.github/scripts/scan_powershell.ps1
+      - name: Testy panelu
+        id: panel_tests
+        continue-on-error: true
+        run: python -B -X utf8 panel/tests/test_panel.py
+      - name: Testy JavaScript panelu
+        id: frontend_tests
+        continue-on-error: true
+        run: node panel/tests/test_frontend.cjs
+      - name: Testy K1 i cache PDF
+        id: k1_tests
+        continue-on-error: true
+        run: |
+          & ./system/tools/k1-lite-v2/tests/Test-K1LiteV2.ps1 -PythonPath python
+          $env:K1_LITE_TEST_FIXTURE = (Resolve-Path system/_SYSTEM/NARRATIVE/TEST-FIXTURES/pdf/k1-layout-adversarial.pdf).Path
+          python -B system/tools/k1-lite/tests/Test-PdfToMarkdownUnit.py
+          if ($LASTEXITCODE -ne 0) { throw 'PDF unit tests failed' }
+          python -B system/tools/k1-lite/tests/test_page_cache.py
+          if ($LASTEXITCODE -ne 0) { throw 'PDF cache tests failed' }
+      - name: PeĹ‚ny test integracyjny Narrative V2
+        id: system_tests
+        continue-on-error: true
+        run: |
+          $result = & ./system/tools/Test-NarrativeV2.ps1 -PythonPath python
+          $result | ConvertTo-Json -Depth 12 | Set-Content artifacts/system-tests.json -Encoding utf8
+          if ($result.Verdict -ne 'PASS') { throw 'Narrative V2 failed' }
+      - name: Raport do pobrania
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: raport-kontroli-${{ github.run_id }}-${{ github.run_attempt }}
+          path: artifacts/
+          retention-days: 7
+          if-no-files-found: warn
+      - name: Wynik caĹ‚ej kontroli
+        if: always()
+        env:
+          PYTHON_SCAN: ${{ steps.python_scan.outcome }}
+          POWERSHELL_SCAN: ${{ steps.powershell_scan.outcome }}
+          PANEL_TESTS: ${{ steps.panel_tests.outcome }}
+          FRONTEND_TESTS: ${{ steps.frontend_tests.outcome }}
+          K1_TESTS: ${{ steps.k1_tests.outcome }}
+          SYSTEM_TESTS: ${{ steps.system_tests.outcome }}
+        run: |
+          $failed = @()
+          foreach ($name in @('PYTHON_SCAN', 'POWERSHELL_SCAN', 'PANEL_TESTS', 'FRONTEND_TESTS', 'K1_TESTS', 'SYSTEM_TESTS')) {
+            $outcome = [Environment]::GetEnvironmentVariable($name)
+            "- ${name}: $outcome" | Add-Content $env:GITHUB_STEP_SUMMARY
+            if ($outcome -ne 'success') { $failed += $name }
+          }
+          if ($failed.Count) { throw ('Kontrola nie przeszĹ‚a: ' + ($failed -join ', ')) }

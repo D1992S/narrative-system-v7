@@ -63,3 +63,15 @@ Testy korzystają z lokalnych fixture'ów i nie wymagają generowania odpowiedzi
 `.gitattributes` wyłącza automatyczne przepisywanie końców linii. System wiąże instrukcje, cytaty i receipty hashami, dlatego checkout musi zachować oryginalne bajty. Nie uruchamiaj automatycznego formatowania całego systemu.
 
 Dokumenty wewnątrz `system/` zachowano bajtowo, wraz z historycznymi ścieżkami i opisem kopii roboczej. W tym repozytorium punktem wejścia jest niniejszy README; aktualne położenie kodu to `system/`. Repozytorium nie kopiuje historycznego katalogu `.git` ani danych tymczasowych.
+
+## Automatyczna kontrola na GitHubie
+
+W zakładce **Actions → Kontrola systemu i panelu** znajdziesz wynik ostatniego sprawdzenia. Kontrola uruchamia się po zmianach na `main`, przy pull requestach i przez przycisk **Run workflow**.
+
+- Ruff przegląda Python, a PSScriptAnalyzer PowerShell w systemie, panelu i skryptach CI.
+- Wykonywane są testy panelu, JavaScript, K1, cache PDF i pełnego procesu Narrative V2.
+- Podsumowanie pokazuje liczbę uwag; pełne raporty JSON można pobrać jako artefakt przez 7 dni. Zielony wynik oznacza przejście testów i brak błędów blokujących, nie brak wszystkich ostrzeżeń.
+- Kontrola niczego nie poprawia automatycznie i nie używa LLM-a.
+- Dependabot co tydzień proponuje aktualizacje bibliotek Python i akcji. Pull requesty wymagają przeglądu; nie ma automatycznego scalania.
+
+Szczegóły i ograniczenia: [docs/AUTOMATYCZNA-KONTROLA.md](docs/AUTOMATYCZNA-KONTROLA.md).

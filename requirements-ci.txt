@@ -1,0 +1,2 @@
+# Static analysis only; no LLM/API dependency.
+ruff==0.16.7
