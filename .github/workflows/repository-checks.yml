@@ -38,18 +38,18 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: '24'
-      - name: Instalacja narzÄ™dzi kontroli
+      - name: Instalacja narzedzi kontroli
         run: |
           if ($PSVersionTable.PSVersion -lt [version]'7.5') { throw 'PowerShell 7.5+ required' }
           python -m pip install -r requirements.txt -r requirements-ci.txt
           if ($LASTEXITCODE -ne 0) { throw 'Python dependencies failed' }
           New-Item -ItemType Directory -Force .local/PowerShell, artifacts | Out-Null
           Save-Module -Name PSScriptAnalyzer -RequiredVersion 1.25.0 -Repository PSGallery -Path .local/PowerShell -Force
-      - name: Analiza caĹ‚ego kodu Python
+      - name: Analiza calego kodu Python
         id: python_scan
         continue-on-error: true
         run: python -B .github/scripts/scan_python.py
-      - name: Analiza caĹ‚ego kodu PowerShell
+      - name: Analiza calego kodu PowerShell
         id: powershell_scan
         continue-on-error: true
         run: ./.github/scripts/scan_powershell.ps1
@@ -71,7 +71,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'PDF unit tests failed' }
           python -B system/tools/k1-lite/tests/test_page_cache.py
           if ($LASTEXITCODE -ne 0) { throw 'PDF cache tests failed' }
-      - name: PeĹ‚ny test integracyjny Narrative V2
+      - name: Pelny test integracyjny Narrative V2
         id: system_tests
         continue-on-error: true
         run: |
@@ -86,7 +86,7 @@ jobs:
           path: artifacts/
           retention-days: 7
           if-no-files-found: warn
-      - name: Wynik caĹ‚ej kontroli
+      - name: Wynik calej kontroli
         if: always()
         env:
           PYTHON_SCAN: ${{ steps.python_scan.outcome }}
@@ -102,4 +102,4 @@ jobs:
             "- ${name}: $outcome" | Add-Content $env:GITHUB_STEP_SUMMARY
             if ($outcome -ne 'success') { $failed += $name }
           }
-          if ($failed.Count) { throw ('Kontrola nie przeszĹ‚a: ' + ($failed -join ', ')) }
+          if ($failed.Count) { throw ('Kontrola nie przeszla: ' + ($failed -join ', ')) }
