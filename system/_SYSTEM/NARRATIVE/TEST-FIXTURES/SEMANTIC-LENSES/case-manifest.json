@@ -1,0 +1,99 @@
+{
+  "schema": "SYSTEM_V7_SEMANTIC_LENS_CASE_MANIFEST_V1",
+  "revision": "2026-08-31.1",
+  "cases": [
+    {
+      "case_id": "VERIFY-OVERCONFIDENCE-001",
+      "lens": "VERIFY",
+      "primary_input_role": "DRAFT_BLOCKS",
+      "primary_fixture_relative": "VERIFY-OVERCONFIDENCE-001.draft.md",
+      "primary_fixture_sha256": "DA8D6A451A733B6DD64EDE59071CB71E21691C28CED2C58A311AF025FEAA5E52",
+      "support_fixtures": [
+        {
+          "purpose": "SOURCE_UNCERTAINTY",
+          "relative": "VERIFY-OVERCONFIDENCE-001.source.txt",
+          "sha256": "BF2752A19CBDF992D30DBF597B102206209D510DE27003B437E5B8DB2C77FDF5"
+        },
+        {
+          "purpose": "SOURCE_LOCATORS",
+          "relative": "VERIFY-OVERCONFIDENCE-001.locators.json",
+          "sha256": "1BF532F94E3BA884D26A2DDF0AE4A7C46294A4FFA1AD5E0922DBFA05DAEC0FED"
+        }
+      ],
+      "expected": {
+        "verdict": "FAIL",
+        "min_review_alert_count": 0,
+        "block_id": "BLOCK-ACT-001-001",
+        "p_id": "#P-901",
+        "source_id": "SRC-SEM-901",
+        "locator": "plik VERIFY-OVERCONFIDENCE-001.source.txt, akapit 1",
+        "criterion": "ATTRIBUTION_UNCERTAINTY",
+        "certainty_regex": "(?i)(pewno|bez wątpienia|kategorycz|zawyżon|nadmiern)",
+        "uncertainty_regex": "(?i)(hipote|nie wiadomo|niepewn|nierozstrzyg)"
+      }
+    },
+    {
+      "case_id": "EDITOR-EXEMPLAR-COPY-001",
+      "lens": "EDITOR",
+      "primary_input_role": "CLEAN_DRAFT",
+      "primary_fixture_relative": "EDITOR-EXEMPLAR-COPY-001.clean.md",
+      "primary_fixture_sha256": "FBC69243E52510C6AE23660AF9458324625B120136E9F5883635C4F5896030BE",
+      "support_fixtures": [
+        {
+          "purpose": "VOICE_EXEMPLAR_PHRASE",
+          "relative": "EDITOR-EXEMPLAR-COPY-001.exemplar.md",
+          "sha256": "D14AE5D50970F7DE8E6241F9623A013E06BFC5EE3A7E9942030F4EFFCA6F4DB3"
+        }
+      ],
+      "expected": {
+        "verdict": "FAIL",
+        "min_review_alert_count": 1,
+        "block_id": "BLOCK-ACT-001-001",
+        "p_id": "BRAK",
+        "source_id": "BRAK",
+        "locator": "BRAK",
+        "criterion": "VOICE_EXEMPLAR_8GRAM_OVERLAP",
+        "certainty_regex": "(?i)(exemplar|fraza|kopi|8-gram)",
+        "uncertainty_regex": "(?i)(przepisa|sparafraz|usun|zmien)"
+      }
+    },
+    {
+      "case_id": "EDITOR-DIRECT-CONTACT-NO-VC-001",
+      "lens": "EDITOR",
+      "primary_input_role": "CLEAN_DRAFT",
+      "primary_fixture_relative": "EDITOR-DIRECT-CONTACT-NO-VC-001.clean.md",
+      "primary_fixture_sha256": "95CA57782D7BC159585F155A3672C12957130ED249DA6395FF8FE919C56A064E",
+      "support_fixtures": [],
+      "expected": {
+        "verdict": "FAIL",
+        "min_review_alert_count": 1,
+        "block_id": "BLOCK-ACT-001-001",
+        "p_id": "BRAK",
+        "source_id": "BRAK",
+        "locator": "BRAK",
+        "criterion": "UNPLANNED_DIRECT_VIEWER_CONTACT",
+        "certainty_regex": "(?i)(kontakt|widz|ty|tobie|spójrz)",
+        "uncertainty_regex": "(?i)(VC|nieplanowan|brak)"
+      }
+    },
+    {
+      "case_id": "EDITOR-HUMOR-FORBIDDEN-001",
+      "lens": "EDITOR",
+      "primary_input_role": "CLEAN_DRAFT",
+      "primary_fixture_relative": "EDITOR-HUMOR-FORBIDDEN-001.clean.md",
+      "primary_fixture_sha256": "0E95DE6E62585A6BC6B2CA6F70C0281F1E0C90E2A7CF811EB626D4EA25004659",
+      "support_fixtures": [],
+      "expected": {
+        "verdict": "FAIL",
+        "min_review_alert_count": 0,
+        "block_id": "BLOCK-ACT-001-001",
+        "p_id": "BRAK",
+        "source_id": "BRAK",
+        "locator": "BRAK",
+        "criterion": "HUMOR_FORBIDDEN_CLEAR_SIGNAL",
+        "certainty_regex": "(?i)(humor|żart|dowcip|ironi)",
+        "uncertainty_regex": "(?i)(FORBIDDEN|zabronion|usun)"
+      }
+    }
+  ]
+}

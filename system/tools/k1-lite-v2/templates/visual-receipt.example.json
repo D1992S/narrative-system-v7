@@ -1,0 +1,12 @@
+{
+  "schema": "K1_LITE_V2_VISUAL_RECEIPT_V1",
+  "run_id": "K1V2-...",
+  "candidate_id": "C0001-00-A",
+  "quote_sha256": "64_HEX",
+  "full_render_relative": "V2-RUNS/run/qa/P0001-full.png",
+  "full_render_sha256": "64_HEX",
+  "crop_relative": "V2-RUNS/run/qa/P0001-crop.png",
+  "crop_sha256": "64_HEX",
+  "reviewer": "DAWID_OR_QA",
+  "verdict": "PASS"
+}

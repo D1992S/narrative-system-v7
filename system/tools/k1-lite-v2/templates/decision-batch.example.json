@@ -1,0 +1,13 @@
+{
+  "schema": "K1_LITE_V2_DECISION_BATCH_V1",
+  "run_id": "K1V2-...",
+  "decisions": [
+    {
+      "candidate_id": "C0001-00-A",
+      "decision": "MUST_INCLUDE",
+      "actor": "DAWID",
+      "reason": "Konieczny w bazie dowodów filmu.",
+      "conflict_acknowledged": false
+    }
+  ]
+}

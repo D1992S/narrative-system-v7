@@ -1,0 +1,495 @@
+{
+  "schema": "SYSTEM_V7_BASELINE_MANIFEST_V1",
+  "generated_at_utc": "2026-08-31T11:42:11.3886690Z",
+  "system_root": "E:\\projektyoutube\\_BACKUPS\\System-v7.0_PRE_NARRATIVE_V2_20260831-133547",
+  "file_count": 97,
+  "total_bytes": 1363114,
+  "aggregate_sha256": "EB4D19FBA634179DA50E20B497E7D586243622BFD4A6F66372D6BE22820E57F6",
+  "files": [
+    {
+      "path": "_SYSTEM/00-KONSTYTUCJA.md",
+      "bytes": 25137,
+      "sha256": "3DD3A7E7A7B3378FD10A77EE4314AED35DA478195D12642715E184F439B8EED1"
+    },
+    {
+      "path": "_SYSTEM/01-PIPELINE.md",
+      "bytes": 9956,
+      "sha256": "F04605CC8AAFCDDCCC82DDEF0362A4F58DC52F79091E90376232FC4D82CA39E1"
+    },
+    {
+      "path": "_SYSTEM/02-ROLE-I-ODPOWIEDZIALNOSC.md",
+      "bytes": 4541,
+      "sha256": "0A221A8B72C88861C47860FBD3E658BE3E44614C01EEF248B7D6632A18F64221"
+    },
+    {
+      "path": "_SYSTEM/03-STAN-I-PLIKI.md",
+      "bytes": 10260,
+      "sha256": "CC5EE2D4CE578142F8191B9A32BB3B28ACBA0DDD795E7958D7EEA72357B4576C"
+    },
+    {
+      "path": "_SYSTEM/04-START-I-KOMENDY.md",
+      "bytes": 20821,
+      "sha256": "CF988DAD9A9EF607AB98414407D4FB08164638F619FB8D7BB2C04577BC12556C"
+    },
+    {
+      "path": "_SYSTEM/05-PROFIL-KANALU.md",
+      "bytes": 2542,
+      "sha256": "CF7CF8FD5146F2C87474831A1CD88C3ECFEAEAC14887766D067D405227AD808A"
+    },
+    {
+      "path": "_SYSTEM/06-AUTOMATYZACJE.md",
+      "bytes": 5304,
+      "sha256": "7A6D6B7F300A079E1CBB666055BAE2DAD8D90E424816682AF4619A2422FD1057"
+    },
+    {
+      "path": "_SYSTEM/ROLES/CLAUDE.md",
+      "bytes": 1798,
+      "sha256": "16BE90518A60E6B0F74FD1F9DE4D79401CE36DA4CD788CA863AF0D0BF36B0601"
+    },
+    {
+      "path": "_SYSTEM/ROLES/CODEX.md",
+      "bytes": 4489,
+      "sha256": "24735A1995B6DC7044ED9F00341942885B118D5511E328F340825E4D674B1920"
+    },
+    {
+      "path": "_SYSTEM/ROLES/DAWID.md",
+      "bytes": 4125,
+      "sha256": "B7CCC7107EE9C29D53140AB246A6B0848562EE183FAC2756010BFCB4E2BC4FDA"
+    },
+    {
+      "path": "_SYSTEM/SKILLS/DZIENNIKARSKI.md",
+      "bytes": 1448,
+      "sha256": "FD82883F989C86D24FB7C694A6B779F87FD95A6CBDF9D818DAFA21139BADDE6A"
+    },
+    {
+      "path": "_SYSTEM/SKILLS/KANON-DRAMATURGII.md",
+      "bytes": 3261,
+      "sha256": "E2D4FA203D019DB1EF8F6344550943D525F7E2E31E2203ED42498A92DF4A8429"
+    },
+    {
+      "path": "_SYSTEM/SKILLS/PISMAK.md",
+      "bytes": 7181,
+      "sha256": "33691987008FF6C4FC70EFCF1F7443CDE84E01698624F307234E873870A70DD1"
+    },
+    {
+      "path": "_SYSTEM/SKILLS/STORYTELLING.md",
+      "bytes": 895,
+      "sha256": "E06F6CCE4ED1D239DF148034F919EAC38079530082A0013A79EFA6028714AAFF"
+    },
+    {
+      "path": "_SYSTEM/SKILLS/USTALENIA-STYLU.md",
+      "bytes": 770,
+      "sha256": "6D60650CA6F5B73B43AA3DEA8F4C6465468355ABB21BA348A276D51AD58EA651"
+    },
+    {
+      "path": "_SYSTEM/STEPS/K0-FUNDAMENT.md",
+      "bytes": 3572,
+      "sha256": "EF9E784FC3C7818CF71FD412E1E0DD754E53CB08AD5869D591A942CA566DC2BC"
+    },
+    {
+      "path": "_SYSTEM/STEPS/K1-BAZA-DOWODOW.md",
+      "bytes": 10991,
+      "sha256": "A279DA22996294D2B32FE04B8AC9F1CF45104EB4CD1CB618E97CE6A803E75621"
+    },
+    {
+      "path": "_SYSTEM/STEPS/K2-ARCHITEKTURA.md",
+      "bytes": 5483,
+      "sha256": "F89F00A7D24E3C7D492036D74D85CD00E76C76A6F0DDB2F42B841C92F0431447"
+    },
+    {
+      "path": "_SYSTEM/STEPS/K2B-SUPLEMENT.md",
+      "bytes": 5232,
+      "sha256": "FE064D5F493278C75C281392D208315A6944C05F695A855B2F1EB66E728F721F"
+    },
+    {
+      "path": "_SYSTEM/STEPS/K3-SCENARIUSZ.md",
+      "bytes": 6325,
+      "sha256": "CC787A02FAAED5C976BFE97096209BC648B493B254DA3988B580988A20493FF1"
+    },
+    {
+      "path": "_SYSTEM/STEPS/K4-QA-FACTCHECK.md",
+      "bytes": 10871,
+      "sha256": "EC5DB0F9D7D1BF46F57547FA95DBA01EACCD7F05436DEF42B760FECA7F3480B6"
+    },
+    {
+      "path": "_SYSTEM/STEPS/K5-FINAL.md",
+      "bytes": 2878,
+      "sha256": "76C33B4E450042E1573B8DBFD56EF1DFB3BDB4FA67C1F797C18AE9273BF7F8C5"
+    },
+    {
+      "path": "_SYSTEM/STEPS/W0-POMYSL-I-ZRODLA.md",
+      "bytes": 4945,
+      "sha256": "A20E0265F31DB58009AAEB9437040D8651DEA88AA210F56009AD925087694BFC"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 39,
+      "sha256": "CA0188E9F0B4B58E02A1999AA5CCE81FECD83688C0181F74660B5512D3EC7FF9"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 9085,
+      "sha256": "6EED505E4101B25D5E1A9272DE1C95E8F13D6033A7B3E40DB9023389F2F6EB13"
+    },
+    {
+      "path": "AUDYT-KOMPLETNOSCI.md",
+      "bytes": 7763,
+      "sha256": "C952DD4434D2CB90AF7606A044273E9CD8EFB27201923C698E7AEA26DB49AEA0"
+    },
+    {
+      "path": "BIBLIA/01-TOZSAMOSC-DOKUMENTU.md",
+      "bytes": 1995,
+      "sha256": "BE3B0C92A04C267D90FF7754E2E1B57611085E80A5DDE63671EC405A5F9FB809"
+    },
+    {
+      "path": "BIBLIA/02-POMYSL-HIPOTEZA-I-POJEMNOSC-NARRACYJNA.md",
+      "bytes": 2322,
+      "sha256": "5115E1D02E12A8005E4BEC328AB95AC08BA15DA7EC27D2E28AC11D51902A4C57"
+    },
+    {
+      "path": "BIBLIA/03-RESEARCH-DOWODY-I-ETYKA.md",
+      "bytes": 6559,
+      "sha256": "B64928D8F4D08CE0BDA00CC8009B136308C843703D3BCB5333F86EF9CDAE7167"
+    },
+    {
+      "path": "BIBLIA/04-DRAMATURGIA-STRUKTURA-I-CZAS.md",
+      "bytes": 2451,
+      "sha256": "924DD61AD0E0208A0EC31E7A86EEFD366F4DAE47778586DFEF86BDEC7E72EA69"
+    },
+    {
+      "path": "BIBLIA/05-BOHATER-WYWIAD-I-SWIADECTWO.md",
+      "bytes": 1921,
+      "sha256": "5FC0DE3B0549A137D8AA6CF4AEB36AD991FC66817B523031F90A2655834F788E"
+    },
+    {
+      "path": "BIBLIA/06-NARRACJA-GLOS-I-JEZYK.md",
+      "bytes": 2207,
+      "sha256": "58E771C2223A573E03636D0BF985EDB436854477EFC920425AC6E9545EE8C3AC"
+    },
+    {
+      "path": "BIBLIA/12-BIBLIOTEKA-KSIAZEK.md",
+      "bytes": 2635,
+      "sha256": "2C01A6D5CC4F5EE49377250D617631B3A09DF38FA3488927A05E218B8CF37969"
+    },
+    {
+      "path": "BIBLIA/13-MASTER-CHECKLISTA-NARRACJI.md",
+      "bytes": 1317,
+      "sha256": "5EA2B1A306E5DEE5296D97D2BBBEFAB223BBCC28E747F46C7BBE02E37EF39A0A"
+    },
+    {
+      "path": "BIBLIA/README.md",
+      "bytes": 1276,
+      "sha256": "12AE55CC95B5A042C507A9F00FA9376FEF4D26F1A5A231568F315F04F6F5CB2E"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 21535,
+      "sha256": "744A489DBC5F08F860BA3BABC5BD7DFFF6CA4DE8591A9132C00E9CE48A1D3B56"
+    },
+    {
+      "path": "MAPA-SYSTEMU.md",
+      "bytes": 6327,
+      "sha256": "1DDC80B43140A1B518C9A78752FB3CEECA8FF710DDA1644218F5BC3309E5ED12"
+    },
+    {
+      "path": "Proces-v7.0.canvas",
+      "bytes": 23322,
+      "sha256": "7773154AA96409155BA2986A4F564F8E2F9966EFA94B531774C4B2C8C896D5E6"
+    },
+    {
+      "path": "README.md",
+      "bytes": 9182,
+      "sha256": "B1A943B4C3E6DCF929AB08CDCD90841E81F5FEEE8CFFBFBE0B640050A382BEAD"
+    },
+    {
+      "path": "TEMPLATES/PROJECT/00-fundament-projektu.md",
+      "bytes": 1198,
+      "sha256": "8066A804E7CBF837735C520B9D3E7AD8C2E1A2DD9D8991C38B429A733102E91A"
+    },
+    {
+      "path": "TEMPLATES/PROJECT/01-baza-dowodow.md",
+      "bytes": 3099,
+      "sha256": "924E02CA7AC5FA60E81D44E636AC3AFFBFDBE53CEC567DB3C31D1CFAB77D613B"
+    },
+    {
+      "path": "TEMPLATES/PROJECT/02-architektura-odcinka.md",
+      "bytes": 2021,
+      "sha256": "EBB2D8EA984C26716106453B80F91AA591D2827DFF935BBB3BA42067CDF15FEB"
+    },
+    {
+      "path": "TEMPLATES/PROJECT/03-draft.md",
+      "bytes": 631,
+      "sha256": "6F42B611F5FCEC2EA909579BD3F99946E06F5350BB019209BDCCB460452AD4CA"
+    },
+    {
+      "path": "TEMPLATES/PROJECT/04-raport-qa.md",
+      "bytes": 861,
+      "sha256": "86F45A8FF61C2CC53C16D1444827901C260A22A5E0B3D179D5193466693B642C"
+    },
+    {
+      "path": "TEMPLATES/PROJECT/04B-fact-check.md",
+      "bytes": 1408,
+      "sha256": "3C17BA02FBFA91E6DC1CE0BC580E6831BBC516A423119911552EDCEC744EFC6C"
+    },
+    {
+      "path": "TEMPLATES/PROJECT/05-FINAL-SCRIPT.md",
+      "bytes": 549,
+      "sha256": "2C29AFE1BCE3F7587E3EEB9F4A0A60BA4E1AEE13E6A75552ECC5302CE1416EE4"
+    },
+    {
+      "path": "TEMPLATES/PROJECT/meta.md",
+      "bytes": 1583,
+      "sha256": "71FD07BFDA38AE267BA42D9F63B1A8BA37C9D057B67024D2F9DE0642B16A2041"
+    },
+    {
+      "path": "tools/Advance-Stage.ps1",
+      "bytes": 13965,
+      "sha256": "10C40D3E830933CFC57D8CB466B13D773994798E870C435DDE3BCB227AEDD37E"
+    },
+    {
+      "path": "tools/Approve-EditorialException.ps1",
+      "bytes": 8414,
+      "sha256": "E956178B70B7FEBD6FBE774B0916F6C00A36B6C2CE732290649BC2B4667D8C28"
+    },
+    {
+      "path": "tools/Approve-K1ManualFallback.ps1",
+      "bytes": 3090,
+      "sha256": "2194F1640B9E5B806A72162189994E6B264CD401FEF7B3DC9991DE3FCE7D55C4"
+    },
+    {
+      "path": "tools/Approve-K5Final.ps1",
+      "bytes": 3872,
+      "sha256": "F2FEB55F33D839FCEC11EEB9D164A8A0C5C89AAAE8BCE619E6B9D8E9679B54FD"
+    },
+    {
+      "path": "tools/Approve-OwnerOverride.ps1",
+      "bytes": 5537,
+      "sha256": "7F7B8FAF7DEAD74D897199651CE5C124A3D6D5F5AA24B97C607A76B0C595A5D9"
+    },
+    {
+      "path": "tools/Block-Project.ps1",
+      "bytes": 8214,
+      "sha256": "6C08263042B4E2CC32818AF1E9FC2FD796740E2C3F274135B739637CD312EC9B"
+    },
+    {
+      "path": "tools/Build-K3Packets.ps1",
+      "bytes": 13243,
+      "sha256": "9A789EAF3B50CA27C8A617361FF213C7DFC2FECB5BBC6CA2488B542A6E65463C"
+    },
+    {
+      "path": "tools/Build-SourceInventory.ps1",
+      "bytes": 3860,
+      "sha256": "1ECFD72E846078B54571E54A4FEE26BD2371FD76D549EAF2DA29640EAD06F6D5"
+    },
+    {
+      "path": "tools/Build-SourceManifest.ps1",
+      "bytes": 7245,
+      "sha256": "28BD359C93B75CB8B9A6E3E28D3C117A5EBD9B820AD61C8D7B85EE2C8EDF0B5D"
+    },
+    {
+      "path": "tools/Check-Repetition.ps1",
+      "bytes": 3536,
+      "sha256": "85CA812DD5057F3370AE5421F8DECA177D01AF8415236CFDCC0805EBEF7633BC"
+    },
+    {
+      "path": "tools/Close-W0Condition.ps1",
+      "bytes": 4376,
+      "sha256": "B308742D428AC6B72BE8D61DB3D0E8F22B37877EF0963DA0CF8D172817B0A08B"
+    },
+    {
+      "path": "tools/Compare-Draft.ps1",
+      "bytes": 7009,
+      "sha256": "D6D2D00826D2F877F840CDC3B5777E548153C70BE903745D9CB90737DCECCF68"
+    },
+    {
+      "path": "tools/Compile-K1LiteV2.ps1",
+      "bytes": 32715,
+      "sha256": "6BD72A17ABCA5E122B710C823EFA58363BC72DDCA4EE9AAC670568556565BD3C"
+    },
+    {
+      "path": "tools/Compile-K1LiteV2Corpus.ps1",
+      "bytes": 11945,
+      "sha256": "C6ABB05CE7201C9D55EEFDAEAC813A42C0DC95515F49C328C239CF9B8DEC6AD3"
+    },
+    {
+      "path": "tools/Integrity-Receipts.ps1",
+      "bytes": 101991,
+      "sha256": "475E833ADF4EAEDBF757F56B573950C298033B9F86D1B512EE63394C7F81AE54"
+    },
+    {
+      "path": "tools/k1-lite-v2/Invoke-K1LiteV2.ps1",
+      "bytes": 9744,
+      "sha256": "EA5D8BC1BFFB7BC8F44F59A294111697EE86154587CA684F00E01A2B111FD0C8"
+    },
+    {
+      "path": "tools/k1-lite-v2/k1_lite_v2_core.py",
+      "bytes": 118076,
+      "sha256": "78F60F68F174EFF96C6E16BF55868DB3522EC2A74F73D543B3EB957452266BBB"
+    },
+    {
+      "path": "tools/k1-lite-v2/k1_lite_v2.py",
+      "bytes": 7426,
+      "sha256": "63BE879C31B84943E987FBCF88A87454939F7FB8A9F8C25DF340781B1FDC644D"
+    },
+    {
+      "path": "tools/k1-lite-v2/README.md",
+      "bytes": 6634,
+      "sha256": "78703ECF3E0086A7FE261E345FFAAFBDCCA2D1BDF5CF087563684A104A982FC3"
+    },
+    {
+      "path": "tools/k1-lite-v2/templates/decision-batch.example.json",
+      "bytes": 289,
+      "sha256": "459E22BF9D7E573C3064014DFBE8F16EB939B9B2259F5D270B19851F324992DC"
+    },
+    {
+      "path": "tools/k1-lite-v2/templates/visual-receipt.example.json",
+      "bytes": 353,
+      "sha256": "9A03CAD57E72964326095913C63A0F367BA7EB31799131F90AF880CF4DBE8DE6"
+    },
+    {
+      "path": "tools/k1-lite-v2/templates/worker-result.example.json",
+      "bytes": 1060,
+      "sha256": "9C515808FCA14ADC59B16DFCD1916D9465C089998FCDFB4CEAA4619C8D33AF34"
+    },
+    {
+      "path": "tools/k1-lite-v2/tests/make_system_fixture.py",
+      "bytes": 13410,
+      "sha256": "B9D22600C0B7D88D04F17761416B863113740EC0714FFC0CD3AC5D8A07C1451B"
+    },
+    {
+      "path": "tools/k1-lite-v2/tests/test_k1_lite_v2.py",
+      "bytes": 50695,
+      "sha256": "42C1CE1C0EDAADA77708505012B60287385FE202322FE5451314679D0BCCB169"
+    },
+    {
+      "path": "tools/k1-lite-v2/tests/Test-K1LiteV2.ps1",
+      "bytes": 809,
+      "sha256": "A9C100793406EBE5C3E77B477F44FA95C3B5FC753BD93783EBAD2F968F91C7D0"
+    },
+    {
+      "path": "tools/k1-lite-v2/tests/Test-SystemIntegration.ps1",
+      "bytes": 29890,
+      "sha256": "81973B6D0E4310B0B0D5E38A8B56B2032FB4DB5195FC4556A9BF246C8D664046"
+    },
+    {
+      "path": "tools/k1-lite/Convert-PdfToMarkdown.ps1",
+      "bytes": 16856,
+      "sha256": "758C1C0109D5E8EA8FCC657F1DA5D87A9413B6F0916125FF6DE992966062BE6E"
+    },
+    {
+      "path": "tools/k1-lite/pdf_to_markdown.py",
+      "bytes": 13867,
+      "sha256": "37DEACC887D10F5CB1EA3C45D8F7140E6F8A128115FEA1DBB727BCCBC7685982"
+    },
+    {
+      "path": "tools/k1-lite/README.md",
+      "bytes": 2240,
+      "sha256": "2B5DAD19F9C43D1EF4E0627AA390E287297707027626CD8BF6A541AF3C5204B7"
+    },
+    {
+      "path": "tools/k1-lite/Test-K1LiteEvidence.ps1",
+      "bytes": 12402,
+      "sha256": "6EBE665A969219E8394A8AAC4B287C79356D28BC8EC6DF8536B41C065AB6A091"
+    },
+    {
+      "path": "tools/k1-lite/tests/New-K1LiteFixture.py",
+      "bytes": 5871,
+      "sha256": "71226125C73AD135EE550494F21103B51162C0E99613068B082D980AE7552E0E"
+    },
+    {
+      "path": "tools/k1-lite/tests/Test-K1Lite.ps1",
+      "bytes": 28107,
+      "sha256": "AC197A01CE03D9E5748CE94536271A6601BC9DCAB7E8429F87ABFC26B86EE64A"
+    },
+    {
+      "path": "tools/k1-lite/tests/Test-PdfToMarkdownUnit.py",
+      "bytes": 5294,
+      "sha256": "CAC24FD541177E1F0E506E0C5ADC9950C37885370BC3DF3FD8449E72368155F9"
+    },
+    {
+      "path": "tools/K1-PublishIntegrity.ps1",
+      "bytes": 22212,
+      "sha256": "78E3CE5A4353A65D7205ABA38DA60D1B37CD295ED0279C70589306DEB4688512"
+    },
+    {
+      "path": "tools/Measure-Script.ps1",
+      "bytes": 3114,
+      "sha256": "2BB32C1654C127FD3BF8A8CB41DD7ED6935B53EEC4E0A898644DB2A49F186B77"
+    },
+    {
+      "path": "tools/Merge-K1LiteV2Supplement.ps1",
+      "bytes": 46826,
+      "sha256": "B14392D66471D3A1AF80EC53A043414CAE106A3B17F89056E58AE273B45906F6"
+    },
+    {
+      "path": "tools/New-K4VerifyReceipt.ps1",
+      "bytes": 4703,
+      "sha256": "BA94C246D53AC0518D0BFF9F8A7D49EA528B717504E7E17B72979A1E0A8C9FEB"
+    },
+    {
+      "path": "tools/New-Project.ps1",
+      "bytes": 5163,
+      "sha256": "1846BE4718C1C82818D9654E7CED3F42862DF5A262BFCDEB45495D174E4CB2EF"
+    },
+    {
+      "path": "tools/Project-Origin.ps1",
+      "bytes": 26962,
+      "sha256": "046D400909D2E38102D534484A7BBBEA65B4D36C0FA3ABB8C2927A941641C411"
+    },
+    {
+      "path": "tools/README.md",
+      "bytes": 6858,
+      "sha256": "589F863511E9049F552518080192CEE80167A34D18E37048BE03D3B88F2380CC"
+    },
+    {
+      "path": "tools/Register-LegacyProject.ps1",
+      "bytes": 2669,
+      "sha256": "D666FB996E9DDF79E49E731128858109B26EE878ADB81F1C8D3DB457F13D61D9"
+    },
+    {
+      "path": "tools/Search-Sources.ps1",
+      "bytes": 15658,
+      "sha256": "BCEBBEB977EF81A1904EDF367EB3622EEDD598936449853DD01C7AD25CB4B4E5"
+    },
+    {
+      "path": "tools/Start-Stage.ps1",
+      "bytes": 8760,
+      "sha256": "79D460A2A84FA6C903D60008933070CB978400AC2D5A6F5171E09B1F9AD0B2AF"
+    },
+    {
+      "path": "tools/Test-AdvanceAtomicity.ps1",
+      "bytes": 10565,
+      "sha256": "B38AFC32E1516A489259DFCA3579E63F2E3E8AD4444E988C8ABD24F7C1044050"
+    },
+    {
+      "path": "tools/Test-ProjectMutationLocks.ps1",
+      "bytes": 2660,
+      "sha256": "D7A112BCB9E11C3F08111C12256C7DF6A8290E02049FCDAEE367E8BF967EB7AC"
+    },
+    {
+      "path": "tools/Test-System.ps1",
+      "bytes": 207247,
+      "sha256": "429BA15825B1C60C1BE50F28A49622503C600145096E3C064E2E42B8D3C50396"
+    },
+    {
+      "path": "tools/Unblock-Project.ps1",
+      "bytes": 8576,
+      "sha256": "F07BC7241C5F974444D250489AE2524EAE12AACE84D013094A1FD33439ADC39F"
+    },
+    {
+      "path": "tools/Validate-Architecture.ps1",
+      "bytes": 12363,
+      "sha256": "924B9E293095CFC173DCF12206526D95D81C6683D1BF9E24D6AC70B28D33F560"
+    },
+    {
+      "path": "tools/Validate-EvidenceBase.ps1",
+      "bytes": 62919,
+      "sha256": "22ACD4A1E81A2B548B54588244068F9B9C65856DB8372EAB74468C1E586ACBAA"
+    },
+    {
+      "path": "tools/Validate-Project.ps1",
+      "bytes": 99713,
+      "sha256": "2FAB7AB76E3A5A3B63A80FEEB856C9A9F3E91D56DD051D5B31A3122EA03A86AF"
+    }
+  ]
+}

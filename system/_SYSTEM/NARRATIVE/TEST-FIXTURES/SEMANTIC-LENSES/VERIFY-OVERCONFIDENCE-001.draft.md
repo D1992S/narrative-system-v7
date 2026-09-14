@@ -1,0 +1,8 @@
+SCHEMA: K3_ASSEMBLED_DRAFT_V2
+<!-- K3_BLOCK_MAP_BEGIN -->
+```json
+{"acts":[{"act_id":"ACT-001","attest_sha256":"3333333333333333333333333333333333333333333333333333333333333333","blocks":[{"block_id":"BLOCK-ACT-001-001","block_sha256":"4444444444444444444444444444444444444444444444444444444444444444","narrative_refs":["OPEN:NQ-901"],"source_p_ids":["#P-901"],"sw_ids":["SW-901"],"trace_refs":["SW-901"],"word_count":17}],"blocks_sha256":"2222222222222222222222222222222222222222222222222222222222222222","prose_sha256":"1111111111111111111111111111111111111111111111111111111111111111"}],"model_id":"semantic-fixture","model_revision":"v1","prefix_sha256":"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB","schema":"K3_BLOCK_MAP_V1"}
+```
+<!-- K3_BLOCK_MAP_END -->
+## NARRACJA ROBOCZA
+Dokument jest bez wątpienia autentyczny i na pewno dowodzi, że opisane wydarzenie przebiegło dokładnie w ten sposób.

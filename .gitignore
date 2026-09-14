@@ -1,0 +1,26 @@
+# Local production data are never part of this code repository.
+/projects/
+/_work/
+/.local/
+/backups/
+/artifacts/
+**/_test-run/
+**/tmp/
+**/__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+.pytest_cache/
+.env
+.env.*
+!.env.example
+*.pem
+*.pfx
+*.p12
+*.sqlite
+*.sqlite3
+*.db
+*.log
+.DS_Store
+Thumbs.db

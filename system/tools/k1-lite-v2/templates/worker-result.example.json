@@ -1,0 +1,39 @@
+{
+  "schema": "K1_LITE_V2_WORKER_RESULT_V1",
+  "run_id": "K1V2-...",
+  "chunk_id": "C0001",
+  "chunk_sha256": "64_HEX",
+  "continuation_no": 0,
+  "status": "CANDIDATE",
+  "more_strong_candidates": false,
+  "probe_answers": {
+    "Q1": "pierwsze maksymalnie osiem słów",
+    "Q2": "pierwsze maksymalnie osiem słów",
+    "Q3": "pierwsze maksymalnie osiem słów"
+  },
+  "candidates": [
+    {
+      "local_id": "A",
+      "claim": "Jasny opis znaczenia wątku dla filmu",
+      "page": "P0001",
+      "quote": "Dokładny cytat z jednej strony, bez poprawek modelu.",
+      "category": "OPEN_DISCOVERY",
+      "k0_target": "OUTSIDE_K0",
+      "film_value": 3,
+      "risk": 2,
+      "speaker_mode": "AUTHOR_CLAIM",
+      "genealogy": "Autor książki; należy odróżnić tezę od niezależnego potwierdzenia.",
+      "facts": []
+    }
+  ],
+  "metrics": {
+    "model": "gpt-5.6-terra",
+    "effort": "medium",
+    "measurement": "MEASURED",
+    "input_tokens": 0,
+    "cached_input_tokens": 0,
+    "output_tokens": 0,
+    "elapsed_ms": 0,
+    "retry": 0
+  }
+}

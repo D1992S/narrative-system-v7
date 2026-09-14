@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel projektu</title>
+<style>
+:root {
+  --bg: #f4f5f8; --card: #ffffff; --ink: #1c2230; --muted: #6a7284; --line: #e2e5eb;
+  --done: #1d8f4e; --done-bg: #e3f4ea; --active: #2459d6; --active-bg: #e6edfd;
+  --wait: #a86a12; --wait-bg: #fbf0dc; --fail: #c83a3a; --fail-bg: #fbe6e6; --todo: #a0a7b4;
+  --codex: #0c6e66; --codex-bg: #dcf2ef; --claude: #b8440f; --claude-bg: #fbe8dd;
+  --dawid: #6d35d8; --dawid-bg: #ece5fb; --system: #4a5568; --system-bg: #eaedf1;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #101319; --card: #181d26; --ink: #e6e9ef; --muted: #939cae; --line: #282e3a;
+    --done: #45c77f; --done-bg: #16301f; --active: #7aa2ff; --active-bg: #182443;
+    --wait: #e8b04e; --wait-bg: #372a12; --fail: #ff7b7b; --fail-bg: #3a1a1a; --todo: #6c7585;
+    --codex: #44cdbd; --codex-bg: #102d2a; --claude: #ff9160; --claude-bg: #381e11;
+    --dawid: #b494ff; --dawid-bg: #271c42; --system: #aab4c4; --system-bg: #232935;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; padding: 16px 20px 28px; background: var(--bg); color: var(--ink);
+  font: 14px/1.45 "Segoe UI", system-ui, sans-serif; }
+h1 { margin: 0; font-size: 22px; }
+h2 { margin: 0 0 10px; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.muted { color: var(--muted); }
+.small { font-size: 12px; }
+header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 14px; }
+.live { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); white-space: nowrap; }
+.live .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--done); animation: pulse 2s infinite; }
+.live.off .dot { background: var(--fail); animation: none; }
+@keyframes pulse { 50% { opacity: .35; } }
+
+.pipeline { display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 6px; margin-bottom: 14px; }
+.pchip { border-radius: 10px; padding: 8px 6px; text-align: center; background: var(--card); border: 1px solid var(--line); }
+.pchip b { display: block; font-size: 15px; }
+.pchip span { display: block; font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pchip.done { background: var(--done-bg); border-color: transparent; }
+.pchip.done b { color: var(--done); }
+.pchip.current { background: var(--active-bg); border: 2px solid var(--active); }
+.pchip.current b { color: var(--active); }
+.pchip.blocked { background: var(--fail-bg); border: 2px solid var(--fail); }
+.pchip.blocked b { color: var(--fail); }
+.pchip.todo b { color: var(--todo); }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.card, header > div, .step > div { min-width: 0; overflow-wrap: anywhere; }
+.top { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr); gap: 12px; margin-bottom: 12px; }
+.now .stage { font-size: 20px; font-weight: 600; }
+.now .next { margin: 8px 0; padding: 10px 12px; border-radius: 8px; background: var(--active-bg); }
+.now .meta { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--muted); }
+.banner { margin: 8px 0; padding: 8px 12px; border-radius: 8px; background: var(--fail-bg); color: var(--fail); }
+
+.agent-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
+.pill { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 2px 10px; border-radius: 99px; background: var(--system-bg); color: var(--muted); }
+.pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--todo); }
+.pill.working { background: var(--done-bg); color: var(--done); }
+.pill.working .dot { background: var(--done); animation: pulse 1.4s infinite; }
+.pill.idle .dot { background: var(--wait); }
+.agent .last { margin-top: 6px; }
+.agent .pending { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line); font-size: 12px; }
+
+.badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 99px; white-space: nowrap; }
+.badge.CODEX, .who.CODEX { background: var(--codex-bg); color: var(--codex); }
+.badge.CLAUDE, .who.CLAUDE { background: var(--claude-bg); color: var(--claude); }
+.badge.DAWID, .who.DAWID { background: var(--dawid-bg); color: var(--dawid); }
+.badge.SYSTEM, .who.SYSTEM, .badge.PLIK { background: var(--system-bg); color: var(--system); }
+.agent .badge { font-size: 13px; padding: 2px 10px; }
+
+.dawid { margin-bottom: 12px; padding: 10px 14px; border-radius: 12px; background: var(--dawid-bg); color: var(--dawid); }
+.dawid b { display: block; margin-bottom: 2px; }
+
+.cols { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 12px; align-items: start; }
+.feed { position: sticky; top: 12px; }
+.timeline { list-style: none; margin: 0; padding: 0; max-height: calc(100vh - 110px); overflow-y: auto; }
+
+details.stage { border-top: 1px solid var(--line); }
+details.stage:first-of-type { border-top: 0; }
+details.stage summary { display: flex; align-items: center; gap: 10px; padding: 9px 2px; cursor: pointer; list-style: none; }
+details.stage summary::-webkit-details-marker { display: none; }
+details.stage summary::before { content: "▸"; color: var(--muted); width: 10px; }
+details.stage[open] summary::before { content: "▾"; }
+.chip { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 6px; min-width: 70px; text-align: center; }
+.chip.done { background: var(--done-bg); color: var(--done); }
+.chip.current { background: var(--active); color: #fff; }
+.chip.blocked { background: var(--fail); color: #fff; }
+.chip.todo { background: var(--system-bg); color: var(--todo); }
+.stitle { font-weight: 600; }
+.owner { color: var(--muted); font-size: 12px; }
+.count { margin-left: auto; color: var(--muted); font-size: 12px; }
+
+.steps { list-style: none; margin: 0 0 10px; padding: 0 0 0 22px; }
+.step { display: flex; gap: 10px; padding: 5px 0; }
+.icon { width: 20px; height: 20px; flex: none; display: inline-grid; place-items: center; border-radius: 50%; font-size: 12px; font-weight: 700; }
+.done > .icon, td.done .icon { background: var(--done-bg); color: var(--done); }
+.active > .icon, td.active .icon { background: var(--active-bg); color: var(--active); animation: pulse 1.6s infinite; }
+.wait > .icon, td.wait .icon { background: var(--wait-bg); color: var(--wait); }
+.fail > .icon, td.fail .icon { background: var(--fail-bg); color: var(--fail); }
+.todo > .icon, td.todo .icon, td.na .icon { background: var(--system-bg); color: var(--todo); }
+.info > .icon { background: var(--system-bg); color: var(--system); }
+.slabel { font-weight: 500; }
+.step.todo .slabel { color: var(--muted); }
+.who { font-size: 11px; font-weight: 600; padding: 0 7px; border-radius: 99px; margin-left: 4px; }
+.sdetail { color: var(--muted); font-size: 12px; }
+
+.tablewrap { overflow-x: auto; margin: 0 0 12px 22px; }
+table { border-collapse: collapse; width: 100%; font-size: 12px; }
+th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+thead th { color: var(--muted); font-weight: 600; }
+tr.cur th:first-child { color: var(--active); }
+tr.cur { background: var(--active-bg); }
+td.cell .icon { width: 16px; height: 16px; font-size: 10px; margin-right: 4px; vertical-align: middle; }
+td .cdetail { color: var(--muted); }
+
+.filters { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+.filters button { font: inherit; font-size: 12px; border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  padding: 3px 10px; border-radius: 99px; cursor: pointer; }
+.filters button.on { background: var(--ink); color: var(--card); border-color: var(--ink); }
+.ev { display: grid; grid-template-columns: 58px 62px minmax(0, 1fr); gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.ev time { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 12px; }
+.ev .evtext { word-break: break-word; }
+.ev.fail .evtext { color: var(--fail); }
+.ev .k { color: var(--muted); margin-right: 4px; }
+.ev.prompt .evtext { color: var(--dawid); }
+.empty { color: var(--muted); padding: 10px 0; }
+footer { margin-top: 16px; font-size: 12px; }
+.errors { margin-bottom: 12px; }
+
+@media (max-width: 1100px) {
+  .top { grid-template-columns: 1fr 1fr; }
+  .top .now { grid-column: 1 / -1; }
+  .cols { grid-template-columns: 1fr; }
+  .feed { position: static; }
+  .pipeline { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  header { flex-direction: column; gap: 6px; }
+  .top { grid-template-columns: 1fr; }
+  .pipeline { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+</style>
+</head>
+<body>
+<header>
+  <div><h1 id="pname">Panel projektu</h1><div id="ppath" class="muted small"></div></div>
+  <div id="live" class="live off"><span class="dot"></span><span id="livetext">łączenie…</span></div>
+</header>
+<div id="errors" class="errors"></div>
+<nav id="pipeline" class="pipeline"></nav>
+<section class="top">
+  <div class="card now" id="now"></div>
+  <div class="card agent" id="agent-CODEX"></div>
+  <div class="card agent" id="agent-CLAUDE"></div>
+</section>
+<div id="dawid" class="dawid" hidden></div>
+<main class="cols">
+  <section class="card"><h2>Etapy i podkroki</h2><div id="stages"></div></section>
+  <section class="card feed"><h2>Aktywność i ostatnie pliki</h2><div class="filters" id="filters"></div><ol id="timeline" class="timeline"></ol></section>
+</main>
+<footer class="muted">Panel tylko czyta pliki projektu oraz logi sesji Codex Desktop i Claude Code na tym komputerze. Niczego nie zatwierdza ani nie zmienia.
+  Czasy plików pochodzą z dysku, nie z dziennika operacji. Status agentów jest wnioskowany z logów. „Plik istnieje” nie oznacza PASS walidatora. Rozmowy w przeglądarce (chatgpt.com, claude.ai) nie są widoczne — ich wynik pojawia się dopiero w plikach projektu.</footer>
+
+<script>
+const WHO = { DAWID: "Dawid", CODEX: "Codex", CLAUDE: "Claude", SYSTEM: "narzędzie", PLIK: "plik" };
+const ICON = { done: "✓", active: "•", wait: "!", fail: "✗", todo: "", info: "i", na: "–" };
+const KIND = { prompt: "Dawid →", say: "›", run: "▶", edit: "✎", tool: "⚙", stop: "■", file: "" };
+const ACT_COLS = [["packet", "Paczka"], ["preflight", "Preflight"], ["beat", "Beat"], ["prose", "Proza · Claude"], ["out", "CONTINUITY_OUT"], ["attest", "Atest"]];
+const openStages = new Set();
+let lastEffective = null;
+let filter = "ALL";
+let lastData = null;
+const rendered = {};
+let inFlight = false;
+let pollTimer = null;
+
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+function ago(ts) {
+  if (!ts) return "";
+  const s = Math.max(0, Date.now() / 1000 - ts);
+  if (s < 60) return `${Math.round(s)} s temu`;
+  if (s < 3600) return `${Math.round(s / 60)} min temu`;
+  if (s < 86400) return `${Math.round(s / 3600)} godz. temu`;
+  return `${Math.round(s / 86400)} dni temu`;
+}
+function clock(ts) {
+  const d = new Date(ts * 1000);
+  const today = new Date().toDateString() === d.toDateString();
+  return today ? d.toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit" })
+               : d.toLocaleDateString("pl-PL", { day: "2-digit", month: "2-digit" });
+}
+function put(id, html) {
+  if (rendered[id] === html) return;
+  rendered[id] = html;
+  document.getElementById(id).innerHTML = html;
+}
+
+function renderPipeline(stages) {
+  put("pipeline", stages.map(s =>
+    `<div class="pchip ${s.status}" title="${esc(s.title)}"><b>${s.status === "done" ? "✓ " : ""}${esc(s.key)}</b><span>${esc(s.title)}</span></div>`).join(""));
+}
+
+function renderNow(d) {
+  const st = d.stage;
+  const def = d.stages.find(s => s.key === st.effective) || {};
+  const blocked = st.blocked ? `<div class="banner">Projekt ZABLOKOWANY na etapie ${esc(st.effective)}: ${esc(st.blocked_reason)}</div>` : "";
+  const override = st.override && st.override !== "BRAK" ? `<span>owner override: ${esc(st.override)}</span>` : "";
+  put("now", `<h2>Teraz</h2>
+    <div class="stage">${esc(st.effective)} · ${esc(def.title || "")}</div>
+    ${blocked}
+    <div class="next"><b>Następny krok:</b> ${esc(st.next_action)}</div>
+    <div class="meta"><span>piłka u: <b>${esc(st.owner)}</b></span><span>ostatnia bramka: ${esc(st.last_gate)}</span>
+      <span>meta.md zmienione ${esc(ago(st.meta_changed))}</span>${override}</div>`);
+}
+
+function renderAgent(name, a, pending) {
+  a = a || { status: "none" };
+  const label = { working: "pracuje", idle: "czeka", none: "brak sesji" }[a.status];
+  const hint = name === "CODEX"
+    ? "Pojawi się, gdy sesja Codex Desktop użyje ścieżki tego projektu."
+    : "Pojawi się, gdy sesja Claude Code użyje ścieżki tego projektu. Rozmowy w claude.ai nie są widoczne.";
+  const mine = (pending || []).filter(p => p.actor === name);
+  const body = a.status === "none" ? `<div class="muted small">${hint}</div>` : `
+    ${a.title ? `<div class="stitle">${esc(a.title)}</div>` : ""}
+    ${a.last_text ? `<div class="last"><span class="muted">${esc(KIND[a.last_kind] || "")}</span> ${esc(a.last_text)}</div>` : ""}
+    <div class="muted small">ostatnia aktywność ${esc(ago(a.last_ts))}${a.sessions > 1 ? ` · ${a.sessions} sesje` : ""}</div>`;
+  const files = mine.length ? `<div class="pending"><b>Czeka w plikach projektu:</b>${mine.slice(0, 4).map(p =>
+    `<div>${esc(p.run_id)} — ${esc(p.what)}</div>`).join("")}</div>` : "";
+  put(`agent-${name}`, `<div class="agent-head"><span class="badge ${name}">${WHO[name]}</span>
+    <span class="pill ${a.status}"><span class="dot"></span>${label}</span></div>${body}${files}`);
+}
+
+function renderDawid(list) {
+  const el = document.getElementById("dawid");
+  el.hidden = !list.length;
+  put("dawid", list.length ? `<b>Czeka na Twoją decyzję</b>${list.map(x => `<div>${esc(x)}</div>`).join("")}` : "");
+}
+
+const stepHtml = s => `<li class="step ${s.state}"><span class="icon">${ICON[s.state] ?? ""}</span><div>
+  <div class="slabel">${esc(s.label)}<span class="who ${s.who}">${esc(WHO[s.who] || s.who)}</span></div>
+  ${s.detail ? `<div class="sdetail">${esc(s.detail)}</div>` : ""}</div></li>`;
+
+function runsTable(runs) {
+  if (!runs.length) return "";
+  const yes = ok => ok ? "✓" : "—";
+  return `<div class="tablewrap"><table><thead><tr><th>Źródło</th><th>Paczki</th><th>Czeka na workera</th><th>Kandydaci</th>
+    <th>Rekom. ChatGPT</th><th>Decyzje Dawida</th><th>Visual QA</th><th>Przegląd</th><th>Bramki</th></tr></thead><tbody>${runs.map(r => `<tr>
+    <th title="${esc(r.run)}">${esc(r.name)}</th><td>${r.chunks_done}/${r.chunks_total}</td><td>${r.waiting.length || "—"}</td>
+    <td>${r.candidates}</td><td>${r.recommendations}</td><td>${r.decided}/${r.candidates}</td>
+    <td>${r.visual_required ? `${r.visual}/${r.selected}` : "n/d"}</td><td>${yes(r.review)}</td>
+    <td>${r.gates_total ? `${r.gates_ok}/${r.gates_total}` : "—"}${r.report_stale ? " (stary)" : ""}</td></tr>`).join("")}</tbody></table></div>`;
+}
+
+function actsTable(rows) {
+  if (!rows.length) return "";
+  return `<div class="tablewrap"><table><thead><tr><th>Akt</th>${ACT_COLS.map(c => `<th>${c[1]}</th>`).join("")}</tr></thead><tbody>${rows.map(r =>
+    `<tr class="${r.current ? "cur" : ""}"><th>${esc(r.act)}</th>${ACT_COLS.map(([k]) => {
+      const c = r.cells[k] || { state: "na", short: "—", detail: "" };
+      return `<td class="cell ${c.state}" title="${esc(c.detail)}"><span class="icon">${ICON[c.state] ?? ""}</span><span class="cdetail">${esc(c.short)}</span></td>`;
+    }).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+
+function renderStages(d) {
+  if (d.stage.effective !== lastEffective) {
+    lastEffective = d.stage.effective;
+    openStages.add(d.stage.effective);
+  }
+  put("stages", d.stages.map(s => {
+    const steps = s.steps || [];
+    const done = steps.filter(x => x.state === "done").length;
+    const chip = s.historical && s.status === "done" ? "zamknięty wg meta" : { done: "✓ potwierdzone", current: "teraz", blocked: "wymaga kontroli", todo: "później" }[s.status];
+    return `<details class="stage" data-key="${s.key}" ${openStages.has(s.key) ? "open" : ""}>
+      <summary><span class="chip ${s.status}">${esc(s.key)}</span><span class="stitle">${esc(s.title)}</span>
+        <span class="owner">${esc(s.owner)} · ${chip}</span><span class="count">${steps.length ? `${done}/${steps.length}` : ""}</span></summary>
+      <ul class="steps">${steps.map(stepHtml).join("")}</ul>
+      ${s.extra && s.extra.runs ? runsTable(s.extra.runs) : ""}
+      ${s.extra && s.extra.acts ? actsTable(s.extra.acts) : ""}
+    </details>`;
+  }).join(""));
+}
+
+function renderTimeline(items) {
+  const counts = { ALL: items.length, CODEX: 0, CLAUDE: 0, PLIK: 0 };
+  items.forEach(e => counts[e.src] = (counts[e.src] || 0) + 1);
+  const labels = { ALL: "Wszystko", CODEX: "Codex", CLAUDE: "Claude", PLIK: "Pliki" };
+  put("filters", Object.keys(labels).map(k =>
+    `<button data-f="${k}" class="${filter === k ? "on" : ""}">${labels[k]} ${counts[k]}</button>`).join(""));
+  const shown = items.filter(e => filter === "ALL" || e.src === filter);
+  put("timeline", shown.length ? shown.map(e => `<li class="ev ${e.kind} ${e.failed ? "fail" : ""}" title="${esc(e.detail || "")}">
+    <time>${clock(e.ts)}</time><span><span class="badge ${e.src}">${WHO[e.src]}</span></span>
+    <div><div class="evtext"><span class="k">${esc(KIND[e.kind] || "")}</span>${esc(e.text)}</div>
+    ${e.title ? `<div class="muted small">${esc(e.title)}</div>` : ""}</div></li>`).join("")
+    : `<li class="empty">Brak zdarzeń.</li>`);
+}
+
+function render(d) {
+  if (!d.ok) {
+    put("errors", `<div class="banner">${esc(d.error || "Nie udało się odczytać projektu")}</div>`);
+    return;
+  }
+  document.title = `Panel · ${d.project.name}`;
+  put("pname", esc(d.project.name));
+  put("ppath", `${esc(d.project.path)} · ${esc(d.project.revision)} · ${esc(d.project.activation)}`);
+  put("errors", (d.errors || []).map(e => `<div class="banner">${esc(e)}</div>`).join(""));
+  renderPipeline(d.stages);
+  renderNow(d);
+  renderAgent("CODEX", (d.agents || {}).CODEX, d.pending_runs);
+  renderAgent("CLAUDE", (d.agents || {}).CLAUDE, d.pending_runs);
+  renderDawid(d.waiting_for_dawid);
+  renderStages(d);
+  renderTimeline(d.timeline);
+}
+
+document.addEventListener("toggle", e => {
+  const el = e.target;
+  if (!(el instanceof HTMLDetailsElement) || !el.dataset.key) return;
+  if (el.open) openStages.add(el.dataset.key); else openStages.delete(el.dataset.key);
+  rendered.stages = document.getElementById("stages").innerHTML;
+}, true);
+document.getElementById("filters").addEventListener("click", e => {
+  const f = e.target.closest("button")?.dataset.f;
+  if (f) { filter = f; if (lastData) renderTimeline(lastData.timeline); }
+});
+
+async function tick() {
+  if (inFlight) return;
+  inFlight = true;
+  clearTimeout(pollTimer);
+  const live = document.getElementById("live");
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 12000);
+  try {
+    const response = await fetch("/api/state", { cache: "no-store", signal: controller.signal });
+    if (!response.ok) throw new Error("HTTP " + response.status);
+    const data = await response.json();
+    if (!data || typeof data !== "object" || typeof data.ok !== "boolean") throw new Error("Nieprawidłowe dane");
+    if (data.ok && (!Array.isArray(data.stages) || !data.stage || !data.project || !Array.isArray(data.timeline))) throw new Error("Niepełne dane");
+    render(data);
+    if (data.ok) lastData = data;
+    const healthy = data.ok && !data.stale && !data.partial && !(data.errors || []).length;
+    live.className = healthy && !data.checking ? "live" : "live off";
+    document.getElementById("livetext").textContent = !healthy
+      ? "dane niepełne lub nieaktualne — ponawiam odczyt"
+      : data.checking ? "odczyt działa · sprawdzanie dowodów"
+      : "na żywo · " + new Date().toLocaleTimeString("pl-PL");
+  } catch (err) {
+    live.className = "live off";
+    document.getElementById("livetext").textContent = "brak aktualnych danych — ponawiam połączenie";
+    put("errors", '<div class="banner">Nie udało się odświeżyć panelu. Wyświetlane dane mogą być nieaktualne.</div>');
+  } finally {
+    clearTimeout(timeout);
+    inFlight = false;
+    pollTimer = setTimeout(tick, document.hidden ? 15000 : 2000);
+  }
+}
+document.addEventListener("visibilitychange", () => { if (!document.hidden) tick(); });
+window.addEventListener("online", () => tick());
+tick();
+</script>
+</body>
+</html>

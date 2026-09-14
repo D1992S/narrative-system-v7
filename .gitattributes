@@ -1,0 +1,4 @@
+# Preserve source bytes: System-v7 instruction manifests use SHA256.
+# Do not normalize CRLF/LF on checkout or commit.
+* -text
+*.pdf binary

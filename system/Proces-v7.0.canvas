@@ -1,0 +1,934 @@
+{
+  "nodes": [
+    {
+      "id": "g-content",
+      "type": "group",
+      "x": -200,
+      "y": 0,
+      "width": 7200,
+      "height": 1280,
+      "color": "6",
+      "label": "TOR NARRACJI — OD POMYSŁU DO FINALNEGO TEKSTU"
+    },
+    {
+      "id": "g-ops",
+      "type": "group",
+      "x": -200,
+      "y": 4000,
+      "width": 7200,
+      "height": 2200,
+      "color": "5",
+      "label": "STEROWANIE, ROLE, NARZĘDZIA I PLIKI"
+    },
+    {
+      "id": "g-bible",
+      "type": "group",
+      "x": -200,
+      "y": 2850,
+      "width": 7200,
+      "height": 1000,
+      "color": "3",
+      "label": "BIBLIA — WIEDZA WSPOMAGAJĄCA, NIE DRUGI PIPELINE"
+    },
+    {
+      "id": "g-start",
+      "type": "group",
+      "x": -200,
+      "y": -1000,
+      "width": 7200,
+      "height": 800,
+      "color": "5",
+      "label": "START — JAK KORZYSTAĆ Z SYSTEMU"
+    },
+    {
+      "id": "s-k1",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/_SYSTEM/STEPS/K1-BAZA-DOWODOW.md",
+      "x": 1500,
+      "y": 120,
+      "width": 430,
+      "height": 220,
+      "color": "4"
+    },
+    {
+      "id": "d-k1",
+      "type": "text",
+      "text": "## K1 — K1-LITE V2 → BAZA DOWODÓW\n\n**Właściciel:** ChatGPT. **Silnik:** K1-Lite V2 2.1.0.\n\n1. PDF → --TEXT.md + punktowy OCR; MD/TXT/SRT/VTT bez konwersji.\n2. Plan obejmuje 100% jednostek materiału; maksymalnie 2 workery.\n3. Każdy wynik trafia do append-only ledgera.\n4. `KEY_CHATGPT` jest niezależne od decyzji Dawida; tylko Dawid potwierdza konflikty.\n5. `BuildViews` tworzy `editorial-review.md`; Dawid czyta go i wystawia editorial receipt przez `AddReview`.\n6. Ponowne `BuildViews` i `ValidateRun`: dokładnie 6 bramek — `coverage_ready`, `quotes_ready`, `decisions_current`, `selected_visual_ready`, `selected_conflicts_acknowledged`, `editorial_review_ready`.\n7. Preview → Publish z hashami; Publish tworzy osobny receipt i pierwsze `01`. Identyczne ponowienie odzyskuje przerwany zapis.\n8. K2 otwiera dopiero V4 + `MIXED_V1`, `GATE_READY`, `ManualCheckCards: 0` i świeża linia runów/receiptów. Manual fallback wymaga osobnego receiptu.\n\nKarta: `TREŚĆ`, `ŹRÓDŁO_ID`, dokładna `LOKALIZACJA`, `QA_K1`.\n\n**Plik kanoniczny:** `01-baza-dowodow.md`",
+      "x": 1500,
+      "y": 420,
+      "width": 620,
+      "height": 900,
+      "color": "4"
+    },
+    {
+      "id": "s-k2b",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/_SYSTEM/STEPS/K2B-SUPLEMENT.md",
+      "x": 3050,
+      "y": 120,
+      "width": 430,
+      "height": 220,
+      "color": "3"
+    },
+    {
+      "id": "d-k2b",
+      "type": "text",
+      "text": "## K2B — CZY BRAKUJE MATERIAŁU?\n\n**Właściciel:** ChatGPT\n\nTylko luka blokująca opowieść uruchamia celowany run. Brak niezależnego potwierdzenia pozostaje dla K4.\n\nStała kolejność: 6 bramek suplementu → Merge Preview → Publish z hashem ledgera, podglądu i bieżącej bazy → backup + nowy publish receipt wskazujący poprzedni → ponowny `GATE_READY` → punktowa zmiana `02` → świeże paczki K3 → walidacja → Advance. Identyczne ponowienie może odzyskać zgodny canonical/backup/meta. Nie powstają 02A/01B/02B.",
+      "x": 3050,
+      "y": 420,
+      "width": 650,
+      "height": 540,
+      "color": "3"
+    },
+    {
+      "id": "k2b-yes",
+      "type": "text",
+      "text": "# TAK\n\n`SUPLEMENT WYMAGANY`\n\nCelowany K1-Lite V2 → 6 bramek → Merge Preview/Publish → nowy lineage receipt + backup → `GATE_READY` → punktowa zmiana `02` → paczki → walidacja → Advance.",
+      "x": 3370,
+      "y": 900,
+      "width": 430,
+      "height": 240,
+      "color": "3"
+    },
+    {
+      "id": "s-k3",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/_SYSTEM/STEPS/K3-SCENARIUSZ.md",
+      "x": 3950,
+      "y": 120,
+      "width": 430,
+      "height": 220,
+      "color": "2"
+    },
+    {
+      "id": "d-k3",
+      "type": "text",
+      "text": "## K3 — ŚWIEŻE KONTEKSTY I ATEST\n\n**Właściciel prozy:** Claude\n\nJeden akt = jeden świeży kontekst. Packet zawiera compiled core, Story Spine, voice profile, CONTINUITY_IN, legalne pełne karty i najwyżej 7 atomowych CID. Bez całej Biblii i całego korpusu.\n\nSekwencja: constraint preflight → SIMPLE albo beat preflight COMPLEX → proza → CONTINUITY_OUT → niezależny blind attest. Następny akt nie rusza bez PASS. `PACKET_INSUFFICIENT` ma zero prozy.\n\nBrak budżetów słów/znaków i dolnych progów. `Assemble-K3Draft.ps1` montuje tylko atestowane akty.",
+      "x": 3950,
+      "y": 420,
+      "width": 650,
+      "height": 560,
+      "color": "2"
+    },
+    {
+      "id": "k4-fix",
+      "type": "text",
+      "text": "## Formalna pętla korekty\n\nProza: Reopen K4→K3. Źródła lub architektura: K4→K2B. Bez cichego poprawiania w K4.\n\nPo nowym drafcie każda soczewka ma świeży run albo ważny hash-bound carry-forward. Zmiana semantic preflight wymaga ponownej oceny Editora.",
+      "x": 4800,
+      "y": 980,
+      "width": 680,
+      "height": 270,
+      "color": "1"
+    },
+    {
+      "id": "s-k4",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/_SYSTEM/STEPS/K4-QA-FACTCHECK.md",
+      "x": 4800,
+      "y": 120,
+      "width": 430,
+      "height": 260,
+      "color": "1"
+    },
+    {
+      "id": "d-k4",
+      "type": "text",
+      "text": "## K4 — TRZY NIEZALEŻNE SOCZEWKI\n\n**EDITOR_V2:** plan, głos, continuity i semantic preflight.\n**VERIFY_SOURCE_FIRST:** draft, baza, źródła i lokalizatory.\n**COLD_READER_BLIND:** tylko czysta narracja.\n\nKażda soczewka ma inny RUN_ID, TASK_ID i świeży kontekst. Verify blokuje zawyżoną pewność. Cold Reader nie zna planu. Wyniki tworzą jeden `K4_PROOF_SET_V2`, `04` i `04B`; parser bez realnego outputu nie daje PASS.",
+      "x": 4800,
+      "y": 420,
+      "width": 680,
+      "height": 520,
+      "color": "1"
+    },
+    {
+      "id": "complete",
+      "type": "text",
+      "text": "# NARRACJA UKOŃCZONA\n\nDopiero `Advance-Stage.ps1 -Apply` po ważnym K5 approval receipt zapisuje:\n\n`CURRENT_STAGE: COMPLETE`\n`LAST_GATE: K5_PASS`\n\nFinalnym wynikiem systemu jest `05-FINAL-SCRIPT.md`. Dalsza realizacja filmu pozostaje poza systemem.",
+      "x": 6500,
+      "y": 420,
+      "width": 450,
+      "height": 330,
+      "color": "4"
+    },
+    {
+      "id": "s-k0",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/_SYSTEM/STEPS/K0-FUNDAMENT.md",
+      "x": 750,
+      "y": 120,
+      "width": 430,
+      "height": 220,
+      "color": "5"
+    },
+    {
+      "id": "d-k0",
+      "type": "text",
+      "text": "## K0 — KONTRAKT BADAWCZY\n\n**Właściciel:** ChatGPT\n\n**Robisz:** tylko decyzje potrzebne researchowi i 4–8 kompletnych celów `Q-...`; zapisujesz dokładne `WERDYKT: PASS`, tryb researchu zgodny z meta i odpowiadającą mu zgodę na web.\n\n**Nie robisz:** finalnej tezy, aktów, hooka ani drugiego briefu narracji.\n\nPrzy `GO WARUNKOWE` K0 może działać ze statusem `OPEN`, lecz K0 → K1 wymaga wcześniej `Close-W0Condition.ps1`, statusu `CLOSED` i aktualnego receiptu.\n\n**Plik:** `00-fundament-projektu.md`",
+      "x": 750,
+      "y": 420,
+      "width": 620,
+      "height": 660,
+      "color": "5"
+    },
+    {
+      "id": "s-k2",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/_SYSTEM/STEPS/K2-ARCHITEKTURA.md",
+      "x": 2250,
+      "y": 120,
+      "width": 430,
+      "height": 220,
+      "color": "6"
+    },
+    {
+      "id": "s-w0",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/_SYSTEM/STEPS/W0-POMYSL-I-ZRODLA.md",
+      "x": 0,
+      "y": 120,
+      "width": 430,
+      "height": 550,
+      "color": "5"
+    },
+    {
+      "id": "d-k2",
+      "type": "text",
+      "text": "## K2 — STORY ENGINE V2\n\n**Właściciel:** ChatGPT\n\nWejście: kanoniczne GATE_READY, publish receipt i świeże 6 bramek. K2 tworzy Story DNA, dwie osie stanu widza, rejestry NQ/NR/VC, Scene Weave, REQUIRED/SUPPORTING/RESERVE, kontrakt hooka/finału i completion criteria.\n\nKażdy akt ma funkcję, zmianę stanu i najwyżej 7 atomowych CID. Nie ma budżetu słów/znaków, minimum aktu ani celu liczby kontaktów, humoru i twistów.\n\n`Validate-NarrativeV2Project.ps1` musi zwrócić PASS.\n\n🟨 **DECYZJA DAWIDA #2**",
+      "x": 2250,
+      "y": 420,
+      "width": 650,
+      "height": 760,
+      "color": "3"
+    },
+    {
+      "id": "d-w0",
+      "type": "text",
+      "text": "## W0 — POMYSŁ I ŹRÓDŁA\n\n**Właściciel:** Dawid\n**Wsparcie:** ChatGPT\n\nAktywna praca wymaga immutable `project-origin.json`. Rejestracja legacy daje tylko walidację archiwalną; Start/Advance/Block/Unblock odmawiają, a wznowienie wymaga nowego projektu i jawnej migracji. Dawid wpisuje decyzję i warunek jako dane. `LAST_GATE` pozostaje `PROJECT_INITIALIZED`. Dopiero `Advance-Stage.ps1 -Apply -DawidApproved` zapisuje `W0_GO`/`W0_GO_WARUNKOWE` i przechodzi do K0. `NO-GO` wyłącznie przez Block z receiptem.\n\n🟨 **DECYZJA DAWIDA #1**",
+      "x": 0,
+      "y": 775,
+      "width": 620,
+      "height": 470,
+      "color": "3"
+    },
+    {
+      "id": "k2b-no",
+      "type": "text",
+      "text": "# NIE\n\n`SUPLEMENT NIEWYMAGANY`\n\nNie twórz pustych plików. Zbuduj świeże paczki, zwaliduj K2B i przejdź do K3 przez Advance.",
+      "x": 2920,
+      "y": 900,
+      "width": 390,
+      "height": 220,
+      "color": "4"
+    },
+    {
+      "id": "d-k5",
+      "type": "text",
+      "text": "## K5 — FINALNA NARRACJA DAWIDA\n\n**Właściciel:** Dawid\n\nPełne czytanie na głos, czysta narracja, aktualny proof set K4, pełny continuity chain i pomiar czasu. GUIDE nie wymusza długości; HARD_MAX blokuje tylko przekroczoną całość.\n\n`Approve-K5FinalV2.ps1 -DawidApproved` wiąże dokładny final. Dopiero realny Advance zapisuje COMPLETE/K5_PASS.\n\n🟨 **DECYZJA DAWIDA #3**\n\n**Final:** `05-FINAL-SCRIPT.md`",
+      "x": 5750,
+      "y": 420,
+      "width": 720,
+      "height": 520,
+      "color": "4"
+    },
+    {
+      "id": "f-audit",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/AUDYT-WYDAJNOSCI-2026-09-12.md",
+      "x": 6400,
+      "y": -850,
+      "width": 420,
+      "height": 260,
+      "color": "5"
+    },
+    {
+      "id": "how-to-read",
+      "type": "text",
+      "text": "## Jak czytać mapę\n\n- **Duża karta z nazwą etapu** — kliknij, aby wykonać krok.\n- **Karta pod etapem** — skrót: kto, co robi i jaki jest wynik.\n- **Żółta karta** — decyzja Dawida lub rozgałęzienie.\n- **Czerwona karta** — kontrola albo blokada.\n- **Zielona karta** — zatwierdzenie lub zakończenie.\n\nBiblia na dole pomaga podejmować lepsze decyzje, ale nie zmienia kolejności.",
+      "x": 2380,
+      "y": -850,
+      "width": 700,
+      "height": 500,
+      "color": "5"
+    },
+    {
+      "id": "three-decisions",
+      "type": "text",
+      "text": "# DECYZJE DAWIDA\n\n**W0:** GO / GO WARUNKOWE / NO-GO.\n**K1/K2:** wybór materiału, konflikty i kierunek.\n**Głos/czas:** exact AUTHOR_TEXT, VOICE PROFILE, GUIDE/HARD_MAX i świadome powtórzenia.\n**K5:** approval dokładnego finalu, potem Advance.\n\nŚlepy test A/B i aktywacja V2 również należą do Dawida. Do tego czasu rewizja pozostaje PILOT_ONLY. Każda decyzja wymagająca dowodu ma osobny hash-bound receipt.",
+      "x": 3200,
+      "y": -850,
+      "width": 800,
+      "height": 600,
+      "color": "3"
+    },
+    {
+      "id": "legend",
+      "type": "text",
+      "text": "## Kolory\n\n🟦 system / instrukcja\n\n🟨 decyzja\n\n🟩 PASS / gotowe\n\n🟥 QA / blokada\n\n🟪 architektura i narracja\n\n🟧 pisanie / wykonanie",
+      "x": 4100,
+      "y": -850,
+      "width": 650,
+      "height": 460,
+      "color": "3"
+    },
+    {
+      "id": "state-rule",
+      "type": "text",
+      "text": "# ZASADA STANU\n\nPełna ścieżka + ważny project-origin. Legacy-origin daje tylko walidację archiwalną; Start/Advance/Block/Unblock odmawiają. Nie istnieje globalny `ACTIVE_PROJECT`.\n\nPo inicjalizacji mutatory współdzielą byte-lock. `meta.md` ma trwały journal i atomowy `File.Replace`, który zachowuje wersję wypartą. Advance kontroluje pełny rekurencyjny manifest i barierę odczytu przed/po CAS, a commit powstaje dopiero po postchecku. Stan zmieniają wyłącznie Advance/Block/Unblock. W0 pozostaje `PROJECT_INITIALIZED` do Advance. Przed pierwszym Block head ma `BRAK/BRAK`; później `LAST_STATE_RECEIPT_*` wskazuje trwały łańcuch Block/Unblock także po Advance.",
+      "x": 4850,
+      "y": -850,
+      "width": 850,
+      "height": 540,
+      "color": "1"
+    },
+    {
+      "id": "f-map-md",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/MAPA-SYSTEMU.md",
+      "x": 5800,
+      "y": -850,
+      "width": 500,
+      "height": 260,
+      "color": "5"
+    },
+    {
+      "id": "f-readme",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/README.md",
+      "x": 760,
+      "y": -850,
+      "width": 440,
+      "height": 610,
+      "color": "5"
+    },
+    {
+      "id": "start-here",
+      "type": "text",
+      "text": "# ZACZNIJ TUTAJ\n\n1. Nowy projekt twórz przez `New-Project.ps1`: domyślnie Narrative V2.\n2. Podaj pełną ścieżkę i sprawdź project-origin.\n3. Zacznij od W0 i idź zgodnie ze strzałkami.\n4. Po PASS użyj Advance: podgląd, potem `-Apply`. Powrót tylko przez Reopen.\n5. `2026-08-30_K1_LITE_V2` jest zgodnością istniejących projektów; tylko starsze rejestracje legacy są validation-only. Nie edytuj ręcznie `meta.md`.",
+      "x": 0,
+      "y": -850,
+      "width": 650,
+      "height": 450,
+      "color": "4"
+    },
+    {
+      "id": "s-k5",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/_SYSTEM/STEPS/K5-FINAL.md",
+      "x": 5850,
+      "y": 120,
+      "width": 430,
+      "height": 220,
+      "color": "4"
+    },
+    {
+      "id": "f-constitution",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/_SYSTEM/00-KONSTYTUCJA.md",
+      "x": 1300,
+      "y": -850,
+      "width": 440,
+      "height": 260,
+      "color": "1"
+    },
+    {
+      "id": "f-pipeline",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/_SYSTEM/01-PIPELINE.md",
+      "x": 1840,
+      "y": -850,
+      "width": 440,
+      "height": 260,
+      "color": "6"
+    },
+    {
+      "id": "t-manifest",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Build-SourceManifest.ps1",
+      "x": 2250,
+      "y": 5000,
+      "width": 420,
+      "height": 220,
+      "color": "2"
+    },
+    {
+      "id": "t-evidence",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Validate-EvidenceBase.ps1",
+      "x": 2750,
+      "y": 5000,
+      "width": 420,
+      "height": 220,
+      "color": "1"
+    },
+    {
+      "id": "t-packets",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Build-K3PacketsV2.ps1",
+      "x": 3250,
+      "y": 5000,
+      "width": 420,
+      "height": 220,
+      "color": "6"
+    },
+    {
+      "id": "t-architecture",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Validate-NarrativeV2Project.ps1",
+      "x": 3750,
+      "y": 5000,
+      "width": 420,
+      "height": 220,
+      "color": "3"
+    },
+    {
+      "id": "t-new",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/New-Project.ps1",
+      "x": 750,
+      "y": 4500,
+      "width": 420,
+      "height": 220,
+      "color": "5"
+    },
+    {
+      "id": "t-stage",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Advance-Stage.ps1",
+      "x": 1250,
+      "y": 4500,
+      "width": 420,
+      "height": 220,
+      "color": "5"
+    },
+    {
+      "id": "t-measure",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Measure-Script.ps1",
+      "x": 1750,
+      "y": 4500,
+      "width": 420,
+      "height": 220,
+      "color": "5"
+    },
+    {
+      "id": "t-search",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Search-Sources.ps1",
+      "x": 2250,
+      "y": 5270,
+      "width": 420,
+      "height": 220,
+      "color": "2"
+    },
+    {
+      "id": "t-import",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Compile-K1LiteV2.ps1",
+      "x": 2750,
+      "y": 5270,
+      "width": 420,
+      "height": 220,
+      "color": "4"
+    },
+    {
+      "id": "t-test",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Test-System.ps1",
+      "x": 2750,
+      "y": 4500,
+      "width": 420,
+      "height": 220,
+      "color": "4"
+    },
+    {
+      "id": "b06",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/BIBLIA/06-NARRACJA-GLOS-I-JEZYK.md",
+      "x": 2950,
+      "y": 3000,
+      "width": 380,
+      "height": 220,
+      "color": "6"
+    },
+    {
+      "id": "r-dawid",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/_SYSTEM/ROLES/DAWID.md",
+      "x": 1250,
+      "y": 4140,
+      "width": 420,
+      "height": 220,
+      "color": "3"
+    },
+    {
+      "id": "t-validate",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Validate-Project.ps1",
+      "x": 2250,
+      "y": 4500,
+      "width": 420,
+      "height": 220,
+      "color": "1"
+    },
+    {
+      "id": "hard-rules",
+      "type": "text",
+      "text": "# NIE WOLNO\n\n- ręcznie zmieniać `CURRENT_STAGE`, `STAGE_OWNER`, `LAST_GATE` ani blokady\n- kontynuować starszego projektu z `legacy-origin.json`; służy tylko walidacji archiwalnej\n- uznawać `BLOCKED` bez block receiptu lub `DAWID=TAK` bez właściwego receipt\n- mieszać editorial receipt z publish receipt\n- przedstawiać podglądu jako finalnej bazy\n- publikować bez 6 bramek i wymaganych hashy\n- przechodzić K1 z `ManualCheckCards > 0`\n- ignorować `REJECTED` albo potwierdzać konfliktu w imieniu Dawida\n- używać kart bez `QA_K1: GOTOWA` w K2/K3\n- wykonywać fact-check przed K4\n- zastępować bazy w K2B bez backupu i lineage receipt\n- planować realizacji filmu w tym systemie",
+      "x": 4100,
+      "y": 4140,
+      "width": 1000,
+      "height": 820,
+      "color": "1"
+    },
+    {
+      "id": "artifact-chain",
+      "type": "text",
+      "text": "# KANONICZNY ŁAŃCUCH PLIKÓW\n\n`project-origin.json` + `meta.md`\n\n`00 kontrakt` → `01 baza dowodów` → `02 architektura` → `03 draft` → `04 QA + 04B fact-check` → `05 FINALNA NARRACJA`\n\nReceipty V2: K1 editorial/publish, W0 condition, owner/fallback/editorial exceptions, block/unblock, trzy niezależne run receipty K4 zebrane w `K4_PROOF_SET_V2` oraz approval K5 V2. K2B aktualizuje `01/02` dopiero po Publish, backupie i lineage receipt. COMPLETE zapisuje wyłącznie Advance po ważnym K5 receipt.",
+      "x": 5250,
+      "y": 4140,
+      "width": 1500,
+      "height": 650,
+      "color": "4"
+    },
+    {
+      "id": "ops-intro",
+      "type": "text",
+      "text": "# OBSŁUGA NARRATIVE V2\n\n1. Pełna ścieżka + origin + rewizja PILOT_ONLY.\n2. Stan przez Advance/Reopen/Block/Unblock.\n3. K1: pełne pokrycie, 6 bramek i publish receipt.\n4. K2: Story Engine bez budżetów.\n5. K2B: tylko celowana luka/repack.\n6. K3: packet → preflight → świeży autor → OUT → blind attest.\n7. K4: Editor V2 + Verify source-first + Cold Reader blind.\n8. Korekta zawsze przez formalny reopen i rerun/carry.\n9. K5: approval V2, potem Advance do COMPLETE.\n10. `NOT_RUN` nigdy nie znaczy PASS.",
+      "x": 0,
+      "y": 4140,
+      "width": 650,
+      "height": 760,
+      "color": "5"
+    },
+    {
+      "id": "f-state",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/_SYSTEM/03-STAN-I-PLIKI.md",
+      "x": 750,
+      "y": 4140,
+      "width": 420,
+      "height": 220,
+      "color": "5"
+    },
+    {
+      "id": "r-chatgpt",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/_SYSTEM/ROLES/CODEX.md",
+      "x": 1750,
+      "y": 4140,
+      "width": 420,
+      "height": 220,
+      "color": "6"
+    },
+    {
+      "id": "b02",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/BIBLIA/02-POMYSL-HIPOTEZA-I-POJEMNOSC-NARRACYJNA.md",
+      "x": 1230,
+      "y": 3000,
+      "width": 380,
+      "height": 220,
+      "color": "3"
+    },
+    {
+      "id": "templates-note",
+      "type": "text",
+      "text": "## Szablony\n\n`TEMPLATES/PROJECT/` zawiera jedyne poprawne szablony.\n\nK2B aktualizuje `01` i `02` w miejscu; nie tworzy 02A/01B/02B.\n\nNie twórz własnych nazw ani kopii `v2`.",
+      "x": 3250,
+      "y": 4140,
+      "width": 700,
+      "height": 600,
+      "color": "5"
+    },
+    {
+      "id": "b05",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/BIBLIA/05-BOHATER-WYWIAD-I-SWIADECTWO.md",
+      "x": 2520,
+      "y": 3000,
+      "width": 380,
+      "height": 220,
+      "color": "3"
+    },
+    {
+      "id": "r-claude",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/_SYSTEM/ROLES/CLAUDE.md",
+      "x": 2250,
+      "y": 4140,
+      "width": 420,
+      "height": 220,
+      "color": "2"
+    },
+    {
+      "id": "b12",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/BIBLIA/12-BIBLIOTEKA-KSIAZEK.md",
+      "x": 2520,
+      "y": 3370,
+      "width": 380,
+      "height": 220,
+      "color": "5"
+    },
+    {
+      "id": "b13",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/BIBLIA/13-MASTER-CHECKLISTA-NARRACJI.md",
+      "x": 2950,
+      "y": 3370,
+      "width": 380,
+      "height": 220,
+      "color": "4"
+    },
+    {
+      "id": "b03",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/BIBLIA/03-RESEARCH-DOWODY-I-ETYKA.md",
+      "x": 1660,
+      "y": 3000,
+      "width": 380,
+      "height": 220,
+      "color": "3"
+    },
+    {
+      "id": "b04",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/BIBLIA/04-DRAMATURGIA-STRUKTURA-I-CZAS.md",
+      "x": 2090,
+      "y": 3000,
+      "width": 380,
+      "height": 220,
+      "color": "6"
+    },
+    {
+      "id": "bible-map",
+      "type": "text",
+      "text": "## Routing Biblii\n\n**W0/K0/K2:** właściwe rozdziały jako zaplecze decyzji.\n\n**K4/K5:** kryteria redakcyjne i źródłowe.\n\n**K3:** nie czyta pełnej Biblii. Dostaje compiled `K3-RULES-CORE`, Voice Profile, Story Spine i ACT_PACKET.",
+      "x": 3950,
+      "y": 3000,
+      "width": 1100,
+      "height": 430,
+      "color": "3"
+    },
+    {
+      "id": "retention-key",
+      "type": "text",
+      "text": "# KLUCZ: UWAGA WIDZA\n\nRetencja narracji nie jest osobnym trikiem. Powstaje przez cały łańcuch:\n\nW0 obietnica → K1 konkretny rdzeń dowodowy → K2 zmiana stanu, pytania i wypłaty → K3 rytm i konkret → K4 audyt uwagi → K5 naturalne finalne brzmienie.\n\nNajważniejsze dokumenty: **K1**, **K2**, **K3**, **K4** i Biblia `04`, `06`.",
+      "x": 5200,
+      "y": 3000,
+      "width": 1500,
+      "height": 500,
+      "color": "6"
+    },
+    {
+      "id": "b01",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/BIBLIA/01-TOZSAMOSC-DOKUMENTU.md",
+      "x": 800,
+      "y": 3000,
+      "width": 380,
+      "height": 220,
+      "color": "3"
+    },
+    {
+      "id": "bible-intro",
+      "type": "text",
+      "text": "# JAK UŻYWAĆ BIBLII\n\nBiblia syntetyzuje Storra, Truby'ego i warsztat dokumentalny. Jest zapleczem K2/K4, nie rosnącym promptem autora.\n\nWniosek trafia do K3 dopiero po skompilowaniu do funkcji, CID albo soft guidance. Biblia nie zmienia właściciela, etapu ani bramki; przy sprzeczności wygrywa `_SYSTEM/`.",
+      "x": 0,
+      "y": 3000,
+      "width": 700,
+      "height": 610,
+      "color": "3"
+    },
+    {
+      "id": "t-register",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Register-LegacyProject.ps1",
+      "x": 750,
+      "y": 5000,
+      "width": 420,
+      "height": 220,
+      "color": "5"
+    },
+    {
+      "id": "t-close-w0",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Close-W0Condition.ps1",
+      "x": 1250,
+      "y": 5000,
+      "width": 420,
+      "height": 220,
+      "color": "5"
+    },
+    {
+      "id": "t-block",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Block-Project.ps1",
+      "x": 750,
+      "y": 5270,
+      "width": 420,
+      "height": 220,
+      "color": "1"
+    },
+    {
+      "id": "t-unblock",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Unblock-Project.ps1",
+      "x": 1250,
+      "y": 5270,
+      "width": 420,
+      "height": 220,
+      "color": "4"
+    },
+    {
+      "id": "t-owner",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Approve-OwnerOverride.ps1",
+      "x": 1750,
+      "y": 5000,
+      "width": 420,
+      "height": 220,
+      "color": "3"
+    },
+    {
+      "id": "t-editorial-exception",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Approve-EditorialException.ps1",
+      "x": 1750,
+      "y": 5270,
+      "width": 420,
+      "height": 220,
+      "color": "3"
+    },
+    {
+      "id": "t-fallback",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Approve-K1ManualFallback.ps1",
+      "x": 3250,
+      "y": 5270,
+      "width": 420,
+      "height": 220,
+      "color": "3"
+    },
+    {
+      "id": "t-k4-receipt",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Start-K4Lenses.ps1",
+      "x": 3750,
+      "y": 5270,
+      "width": 420,
+      "height": 220,
+      "color": "1"
+    },
+    {
+      "id": "t-k5-receipt",
+      "type": "file",
+      "file": "System-v7.0-KOPIA-ROBOCZA/tools/Approve-K5FinalV2.ps1",
+      "x": 4250,
+      "y": 5270,
+      "width": 420,
+      "height": 220,
+      "color": "4"
+    },
+    {
+      "id": "state-receipts",
+      "type": "text",
+      "text": "# RECEIPTY I PROOFY V2\n\nState receipts wiążą origin, input meta, wynik, poprzedni head, decyzję i czas. Narrative run receipts wiążą zamknięty input bundle, model, task i output.\n\nOsobne proofy istnieją dla constraint/beat preflightu, continuity attest, Editor/Verify/Cold Reader, QA impact/carry, reopen, duration, voice i K5. Narrative V2 nie ma wyjątku budżetu aktu.\n\nHead i cały łańcuch pozostają walidowane po Unblock/Advance. Receipty są audytowalne; nie kryptograficznie uwierzytelniają osoby.",
+      "x": 4750,
+      "y": 5000,
+      "width": 1950,
+      "height": 660,
+      "color": "3"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-start-w0",
+      "fromNode": "start-here",
+      "fromSide": "bottom",
+      "toNode": "s-w0",
+      "toSide": "top",
+      "label": "START"
+    },
+    {
+      "id": "e-w0-k0",
+      "fromNode": "s-w0",
+      "fromSide": "right",
+      "toNode": "s-k0",
+      "toSide": "left",
+      "label": "Advance: GO / GO WARUNKOWE"
+    },
+    {
+      "id": "e-k0-k1",
+      "fromNode": "s-k0",
+      "fromSide": "right",
+      "toNode": "s-k1",
+      "toSide": "left",
+      "label": "Advance: K0 PASS; warunek CLOSED"
+    },
+    {
+      "id": "e-k1-k2",
+      "fromNode": "s-k1",
+      "fromSide": "right",
+      "toNode": "s-k2",
+      "toSide": "left",
+      "label": "Advance: K1 PASS"
+    },
+    {
+      "id": "e-k2-k2b",
+      "fromNode": "s-k2",
+      "fromSide": "right",
+      "toNode": "s-k2b",
+      "toSide": "left",
+      "label": "Advance po wyborze"
+    },
+    {
+      "id": "e-k2b-no",
+      "fromNode": "s-k2b",
+      "fromSide": "bottom",
+      "toNode": "k2b-no",
+      "toSide": "top",
+      "color": "4",
+      "label": "brak luk"
+    },
+    {
+      "id": "e-k2b-yes",
+      "fromNode": "s-k2b",
+      "fromSide": "bottom",
+      "toNode": "k2b-yes",
+      "toSide": "top",
+      "color": "3",
+      "label": "luki blokują"
+    },
+    {
+      "id": "e-no-k3",
+      "fromNode": "k2b-no",
+      "fromSide": "right",
+      "toNode": "s-k3",
+      "toSide": "bottom",
+      "color": "4",
+      "label": "paczki + walidacja + Advance"
+    },
+    {
+      "id": "e-yes-k3",
+      "fromNode": "k2b-yes",
+      "fromSide": "right",
+      "toNode": "s-k3",
+      "toSide": "bottom",
+      "color": "3",
+      "label": "po lineage/paczkach/Advance"
+    },
+    {
+      "id": "e-k3-k4",
+      "fromNode": "s-k3",
+      "fromSide": "right",
+      "toNode": "s-k4",
+      "toSide": "left",
+      "label": "Advance: K3 PASS"
+    },
+    {
+      "id": "e-k4-k5",
+      "fromNode": "s-k4",
+      "fromSide": "right",
+      "toNode": "s-k5",
+      "toSide": "left",
+      "color": "4",
+      "label": "K4_PROOF_SET_V2 + Advance"
+    },
+    {
+      "id": "e-k4-fix",
+      "fromNode": "s-k4",
+      "fromSide": "bottom",
+      "toNode": "k4-fix",
+      "toSide": "top",
+      "color": "1",
+      "label": "1 pętla"
+    },
+    {
+      "id": "e-fix-k4",
+      "fromNode": "k4-fix",
+      "fromSide": "left",
+      "toNode": "s-k4",
+      "toSide": "bottom",
+      "color": "1",
+      "label": "ponowna kontrola"
+    },
+    {
+      "id": "e-w0-note",
+      "fromNode": "s-w0",
+      "fromSide": "bottom",
+      "toNode": "d-w0",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "e-k0-note",
+      "fromNode": "s-k0",
+      "fromSide": "bottom",
+      "toNode": "d-k0",
+      "toSide": "top",
+      "color": "5"
+    },
+    {
+      "id": "e-k1-note",
+      "fromNode": "s-k1",
+      "fromSide": "bottom",
+      "toNode": "d-k1",
+      "toSide": "top",
+      "color": "4"
+    },
+    {
+      "id": "e-k2-note",
+      "fromNode": "s-k2",
+      "fromSide": "bottom",
+      "toNode": "d-k2",
+      "toSide": "top",
+      "color": "6"
+    },
+    {
+      "id": "e-k2b-note",
+      "fromNode": "s-k2b",
+      "fromSide": "bottom",
+      "toNode": "d-k2b",
+      "toSide": "top",
+      "color": "3"
+    },
+    {
+      "id": "e-k3-note",
+      "fromNode": "s-k3",
+      "fromSide": "bottom",
+      "toNode": "d-k3",
+      "toSide": "top",
+      "color": "2"
+    },
+    {
+      "id": "e-k4-note",
+      "fromNode": "s-k4",
+      "fromSide": "bottom",
+      "toNode": "d-k4",
+      "toSide": "top",
+      "color": "1"
+    },
+    {
+      "id": "e-k5-note",
+      "fromNode": "s-k5",
+      "fromSide": "bottom",
+      "toNode": "d-k5",
+      "toSide": "top",
+      "color": "4"
+    },
+    {
+      "id": "e-k5-complete",
+      "fromNode": "s-k5",
+      "fromSide": "right",
+      "toNode": "complete",
+      "toSide": "left",
+      "color": "4",
+      "label": "approval receipt + Advance"
+    }
+  ],
+  "metadata": {
+    "version": "1.0-1.0",
+    "frontmatter": {}
+  }
+}
